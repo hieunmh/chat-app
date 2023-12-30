@@ -1,9 +1,11 @@
-import React from 'react'
+import React from 'react';
+import Header from './Header';
 
 export default function MainLayout({ children }: { children: React.ReactNode }) {
   return (
     <div>
-      {children}
+      <Header />
+      <div>{children}</div>
     </div>
   )
 }

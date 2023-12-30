@@ -3,44 +3,37 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter, useSearchParams } from 'next/navigation';
+
 import { FaEye, FaEyeSlash, FaLock, FaUser } from "react-icons/fa";
 import { BiLoaderCircle } from "react-icons/bi";
 
+import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
+
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import axios from "axios";
+
+import * as z from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { LoginSchema } from '@/schema/authSchema';
+import { cn } from '@/lib/utils';
+
+export type tLoginSchema = z.infer<typeof LoginSchema>
+
+
 export default function Login() {
 
-  let [email, setEmail] = useState<string>('');
-  let [emailError, setEmailError] = useState<string>('');
+  const supabase = createClientComponentClient();
 
-  let [password, setPassword] = useState<string>('');
-  let [passwordError, setPasswordError] = useState<string>('');
+  const searchParams = useSearchParams();
+  const router = useRouter()
+
   let [passwordType, setPasswordType] = useState<string>('password');
+  let [serverError, setServerError] = useState<string>('');
 
   let [loading, setLoading] = useState<boolean>(false);
 
-  const checkEmail = () => {
-    if (email.length == 0) {
-      setEmailError('Vui lòng nhập Email của bạn')
-    }
-    else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
-      setEmailError('Email không hợp lệ')
-    }
-    
-    else {
-      setEmailError('');
-    }
-  }
-
-  const checkPassword = () => {
-    if (password.length < 8) {
-      setPasswordError('Mật khẩu cần chứa ít nhất 8 ký tự');
-    }
-    else if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,50}$/.test(password)) {
-      setPasswordError('Mật khẩu cần chứa ít nhất 1 chữ số, 1 chữ in hoa và 1 ký tự đặc biệt');
-    }
-    else {
-      setPasswordError('');
-    }
-  }
 
   let togglePassword = () => {
     if (passwordType == 'text') {
@@ -51,6 +44,29 @@ export default function Login() {
     }
   } 
 
+  const form = useForm<tLoginSchema>({ resolver: zodResolver(LoginSchema) });
+
+  const login = async (value: tLoginSchema) => {
+    setLoading(true);
+    const res = await axios.post('/api/auth/login', value)
+
+    setLoading(false);
+
+    if (res.data.error) {
+      if (res.data.error.message === 'Invalid login credentials') {
+        setServerError('Sai email hoặc mật khẩu')
+      } else {
+        setServerError(res.data.error.message);
+      }
+    } else {
+      if (searchParams.get('redirect')) {
+        router.push(searchParams.get('redirect') as string);
+      } else {
+        router.push('/');
+      }
+    }
+  }
+
   return (
     <div className='fixed w-full h-full flex items-center justify-center lg:bg-[#ee4d2d]'>
       <div className='text-[30px] font-bold lg:text-white text-[#ee4d2d] hidden lg:block'>
@@ -60,67 +76,81 @@ export default function Login() {
         </Link>
       </div>
 
-      <div className='w-[500px] bg-white h-fit lg:ml-20 rounded-lg sm:shadow-xl sm:border-[1px] lg:border-none'>
+      <div className='w-[500px] bg-white h-fit lg:ml-20 rounded sm:shadow-xl sm:border-[1px] lg:border-none'>
         <Link href={'/'} className='text-center flex justify-center items-center lg:hidden mt-8'>
-          <Image src={'/spx.png'} alt='logo' width={150} height={0} />
+          <Image src={'/spx.png'} alt='logo' width={100} height={0} />
         </Link>
 
         <div className='p-8 flex flex-col justify-center text-gray-500'>
           <h1 className='text-3xl text-center font-semibold hidden lg:block'>Đăng nhập</h1>
+          
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(login)} className={cn('w-full mt-10')}>
+              <FormField control={form.control} name='email' 
+                render={({ field }) => (
+                  <FormItem className='h-16'>
+                    <FormControl className='border-b-[1px] border-b-gray-500'>
+                      <div className='flex items-center'>
+                        <FaUser />
+                        <input type="email" {...field} placeholder='Email' 
+                          className='w-full outline-none font-semibold text-gray-500 pl-3'
+                          onInput={() => setServerError('')}
+                        />
+                      </div>
+                    </FormControl>
+                    <FormMessage className='text-red-500' />
+                  </FormItem>
+                )}
+              />
 
-          <form className='mt-10'>
-            <div className='h-16'>
-              <div className={`flex border-b-[1px] border-b-gray-500 items-center ${emailError && 'border-b-red-500'}`}>
-                <FaUser className='' />
-                <input type="text" className='w-full outline-none pl-2 font-semibold text-lg' placeholder='Email' 
-                  onBlur={() => { 
-                    if (email.length < 1) {
-                      setEmailError('Vui lòng nhập Email của bạn')
-                    }
-                   }} onChange={(event) => setEmail(event.target.value)}
-                  onFocus={() => checkEmail()}
-                />
-              </div>
-              <p className='text-red-500 font-semibold mt-1 text-sm'>{emailError}</p>
-            </div>
+              <FormField control={form.control} name='password' 
+                render={({ field }) => (
+                  <FormItem className='h-16 mt-6'>
+                    <FormControl className='border-b-[1px] border-b-gray-500'>
+                      <div className='flex items-center justify-between'>
+                        <FaLock />
+                        <input type={passwordType} {...field} placeholder='Mật khẩu' 
+                          className='w-full outline-none font-semibold text-gray-500 pl-3' 
+                          onInput={() => setServerError('')}
+                        />
+                        <div className='flex items-center'>
+                          {passwordType == 'password' ? (
+                            <FaEyeSlash onClick={() => togglePassword()} />
+                          ) : (
+                            <FaEye onClick={() => togglePassword()} />
+                          )}
+                          <Link href={'/forgotpassword'} className='ml-2 font-semibold text-blue-500 hover:underline cursor-pointer'>Quên?</Link>
+                        </div>
+                        
+                       </div>
+                    </FormControl>
+                    <FormMessage className='text-red-500' />
+                    {serverError && (
+                      <p className="mt-0 font-semibold text-sm text-red-500">
+                        {serverError}
+                      </p>
+                    )}
+                  </FormItem>
+                )}
+              />
 
-            <div className='h-16 mt-6'>
-              <div className={`flex border-b-[1px] border-b-gray-500 items-center ${passwordError && 'border-b-red-500'}`}>
-                <FaLock />
+            
+              
+              <button type='submit' className={`w-full bg-[#ee4d2d] hover:bg-[#de4d2d] text-white h-12 rounded mt-6 flex items-center justify-center`}>
+                {loading ? (
+                  <BiLoaderCircle className='animate-spin text-[25px]' />
+                ) : (
+                  <p className='font-semibold'>Đăng nhập</p>
+                )}
+              </button>
 
-                <input type={passwordType} className='w-full outline-none pl-2 font-semibold text-lg' placeholder='Mật khẩu' 
-                  onChange={(event) => setPassword(event.target.value)} onInput={() => checkPassword()}
-                />
-
-                <div className='flex items-center justify-center'>
-                  {passwordType == 'text' ? (
-                    <FaEye className='text-xl' onClick={() => togglePassword()} />
-                  ) : (
-                    <FaEyeSlash className='text-xl' onClick={() => togglePassword()} />
-                  )}
-                  <Link href={'/forgotpassword'}>
-                    <p className='font-semibold text-blue-500 cursor-pointer hover:underline ml-1'>Quên</p>
-                  </Link>
-                </div>
-              </div>
-              <p className='text-red-500 font-semibold mt-1 text-sm'>{passwordError}</p>
-            </div>
-
-            <button className={`w-full mt-6 rounded-lg h-12 font-semibold flex items-center justify-center text-center
-            ${email && password && emailError.length < 1 && passwordError.length < 1 ? 'bg-[#ee4d2d] text-white' : 'bg-[#e8e8e8] text-gray-500'}`}
-            >
-              {loading ? (
-                <BiLoaderCircle className='animate-spin text-xl' />
-              ) : (
-                <p>Đăng nhập</p>
-              )}
-            </button>
-
-            <button className='w-full h-12 rounded-lg bg-[#e8e8e8] hover:bg-[#e1e1e1] mt-6 flex items-center justify-center cursor-pointer'>
-              <Image  src={'/google-logo.png'} width={25} height={25} alt='gg' />
-              <p className='ml-1.5 font-semibold'>Đăng nhập bằng Google</p>
-            </button>
-          </form>
+              <button type='submit' className={`w-full bg-[#e8e8e8] hover:bg-[#e1e1e1] text-gray-500 h-12 rounded mt-6 flex items-center justify-center`}>
+                <Image src={'/google-logo.png'} alt='GGlogo' width={25} height={25} />
+                <p className='font-semibold ml-2'>Đăng nhập bằng Google</p>
+              </button>
+            </form>
+          </Form>
+          
         </div>
       </div>
     </div>
