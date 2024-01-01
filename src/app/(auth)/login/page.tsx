@@ -50,7 +50,6 @@ export default function Login() {
     setLoading(true);
     const res = await axios.post('/api/auth/login', value)
 
-    setLoading(false);
 
     if (res.data.error) {
       if (res.data.error.message === 'Invalid login credentials') {
@@ -65,6 +64,8 @@ export default function Login() {
         router.push('/');
       }
     }
+    
+    setLoading(false);
   }
 
   return (

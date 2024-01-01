@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import MainLayout from '@/components/MainLayout'
+import UserProvider from '@/hooks/userUser';
 
 export const metadata: Metadata = {
   title: 'MGP Magic Post',
@@ -10,7 +10,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">      
-      <body>{children}</body>
+      <body>
+        <UserProvider>
+          {children}
+        </UserProvider>
+      </body>
     </html>
   )
 }
