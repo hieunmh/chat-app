@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import UserProvider from '@/hooks/userUser';
+import { Toaster } from 'sonner';
 
 export const metadata: Metadata = {
   title: 'MGP Magic Post',
@@ -15,6 +16,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
         </UserProvider>
       </body>
+      <Toaster richColors theme='light' />
     </html>
   )
 }

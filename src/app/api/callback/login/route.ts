@@ -5,7 +5,10 @@ import { NextResponse } from 'next/server';
 import { NextRequest } from 'next/server';
 import type { Database } from '@/types/supabaseType';
 
-export async function name(request: NextRequest) {
+export const dynamic = 'force-dynamic';
+
+
+export async function GET(request: NextRequest) {
   const requestURL = new URL(request.url);
   const code = requestURL.searchParams.get('code');
 
