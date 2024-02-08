@@ -1,6 +1,6 @@
-
-
 import clsx from 'clsx';
+
+import { LuLoader2 } from 'react-icons/lu';
 
 interface ButtonProps {
   type?: 'button' | 'submit' | 'reset' | undefined;
@@ -17,15 +17,21 @@ const Button: React.FC<ButtonProps> = ({ type, fullWidth, children, onClick, sec
     <button onClick={onClick} type={type} disabled={disabled}
       className={clsx(`flex justify-center rounded-md px-3 py-2 text-sm font-semibold 
       focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 transition-all duration-500`,
-        disabled && 'opacity-50 cursor-default', fullWidth && 'w-full',
+        disabled && 'cursor-default', fullWidth && 'w-full',
         secondary ? 'text-gray-950' : 'text-white',
         danger && 'bg-rose-500 hover:bg-rose-600 focus-visible:outline-rose-600',
-        !secondary && !danger && ` bg-gradient-to-r from-[#0695FF] via-[#A334FA] to-[#FF6968] 
-        hover:from-indigo-500 hover:via-purple-500 hover:to-pink-500
-        focus-visible:from-indigo-500 focus-visible:via-purple-500 focus-visible:to-pink-500`
+        !secondary && !danger && `bg-gradient-to-r from-[#0695FF] via-[#A334FA] to-[#FF6968] 
+        hover:opacity-85
+        focus-visible:opacity-85`
       )}
     >
-      {children}
+      {disabled ? (
+        <div className='h-5'>
+          <LuLoader2 size={20} className='animate-spin' />
+        </div>
+      ) : (
+        <>{children}</>
+      )}
     </button>
   )
 }

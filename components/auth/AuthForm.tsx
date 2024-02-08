@@ -6,7 +6,6 @@ import Input from '../input/Input';
 import Button from '../Button';
 import AuthSocialButton from './AuthSocialButton';
 
-import { BsGithub, BsGoogle } from 'react-icons/bs';
 
 type Variant = 'LOGIN' | 'REGISTER';
 
@@ -54,12 +53,16 @@ export default function AuthForm() {
       <div className='bg-white px-4 py-8 shadow-md sm:rounded-lg sm:px-10'>
         <form className='space-y-6' onSubmit={handleSubmit(onSubmit)}>
           {variant === 'REGISTER' && (
-            <Input id='name' label='Name' register={register} errors={errors} />
+            <Input id='name' label='Name' register={register} errors={errors} disabled={isLoading} />
           )}
 
-          <Input id='email' label='Email address' type='email' register={register} errors={errors} />
+          <Input id='email' label='Email address' type='email' 
+            register={register} errors={errors} disabled={isLoading} 
+          />
 
-          <Input id='password' label='Password' type='password' register={register} errors={errors} />
+          <Input id='password' label='Password' type='password' 
+            register={register} errors={errors} disabled={isLoading} 
+          />
           
           <div>
             <Button disabled={isLoading} fullWidth type='submit'>
@@ -82,9 +85,9 @@ export default function AuthForm() {
           </div>
 
           <div className='mt-6 flex gap-2'>
-            <AuthSocialButton icon={BsGithub} onClick={() => socialAction('github')} />
+            <AuthSocialButton icon={'/image/github-logo.png'} onClick={() => socialAction('github')} />
 
-            <AuthSocialButton icon={BsGoogle} onClick={() => socialAction('google')} />
+            <AuthSocialButton icon={'/image/google-logo.png'} onClick={() => socialAction('google')} />
           </div>
         </div>
 
