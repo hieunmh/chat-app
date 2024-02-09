@@ -5,6 +5,7 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import Input from '../input/Input';
 import Button from '../Button';
 import AuthSocialButton from './AuthSocialButton';
+import axios from 'axios';
 
 
 type Variant = 'LOGIN' | 'REGISTER';
@@ -34,7 +35,7 @@ export default function AuthForm() {
     setIsLoading(true);
 
     if (variant === 'REGISTER') {
-      // axios register
+      axios.post('/api/signup', data)
     }
 
     if (variant === 'LOGIN') {
