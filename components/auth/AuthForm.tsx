@@ -60,7 +60,17 @@ export default function AuthForm() {
   const socialAction = (action: string) => {
     setIsLoading(true);
 
-    // next auth social sign in
+    signIn(action, { redirect: false })
+    .then((callback) => {
+      if (callback?.error) {
+        toast.error(<p className='font-semibold text-sm'>Invalid credentials!</p>);
+      }
+
+      if (callback?.ok && !callback?.error) {
+        toast.success(<p className='font-semibold text-sm'>Logged in!</p>)
+      }
+    })
+    .finally(() => setIsLoading(false));
   }
 
   return (
