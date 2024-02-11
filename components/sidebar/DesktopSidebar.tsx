@@ -3,11 +3,19 @@
 import useRoutes from '@/hooks/useRoutes';
 import React, { useState } from 'react'
 import DesktopItem from './DesktopItem';
+import { User } from '@prisma/client';
+import Avatar from '../Avatar';
 
-export default function DeskopSidebar() {
+interface DeskopSidebarProps {
+  currentUser: User
+}
+
+const DeskopSidebar: React.FC<DeskopSidebarProps> = ({ currentUser }) => {
 
   const routes = useRoutes();
   const [isOpen, setIsOpen] = useState(false);
+
+  
 
   return (
     <div className='hidden lg:fixed lg:inset-y-0 lg:left-0 lg:z-40 lg:w-20 xl:px-6 
@@ -22,6 +30,14 @@ export default function DeskopSidebar() {
           ))}
         </ul>
       </nav>
+      
+      <nav className='mt-4 flex flex-col justify-between items-center'>
+        <div onClick={() => setIsOpen(true)} className='cursor-pointer hover:opacity-75 transition'>
+          <Avatar user={currentUser} />
+        </div>
+      </nav>
     </div>
   )
 }
+
+export default DeskopSidebar;
