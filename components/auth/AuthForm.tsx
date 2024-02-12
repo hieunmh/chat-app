@@ -23,7 +23,7 @@ export default function AuthForm() {
 
   useEffect(() => {
     if (session?.status === 'authenticated') {
-      router.push('/user');
+      router.push('/users');
       
     }
   }, [session?.status])
@@ -63,7 +63,7 @@ export default function AuthForm() {
 
         if (callback?.ok && !callback?.error) {
           toast.success(<p className='font-semibold text-sm'>Logged in!</p>);
-          router.push('/user');
+          router.push('/users');
         }
       })
       .finally(() => setIsLoading(false));

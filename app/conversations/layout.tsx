@@ -1,4 +1,4 @@
-import getConversations from '@/actions/getConversation';
+import getConversations from '@/actions/getConversations';
 import ConversationList from '@/components/conversations/ConversationList';
 import Sidebar from '@/components/sidebar/Sidebar';
 
