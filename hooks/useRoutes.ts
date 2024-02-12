@@ -20,7 +20,7 @@ const useRoutes = () => {
     },
     {
       label: 'Users',
-      href: '/user',
+      href: '/users',
       icon: HiUser,
       active: pathname === '/user'
     },
