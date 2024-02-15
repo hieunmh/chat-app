@@ -4,17 +4,18 @@ import { User } from "@prisma/client";
 import Image from "next/image";
 
 interface AvatarProps {
-  user?: User
+  user?: User;
+  className?: string;
 }
 
-const Avatar: React.FC<AvatarProps> = ({ user }) => {
+const Avatar: React.FC<AvatarProps> = ({ user, className }) => {
   return (
-    <div className='relative md:h-11 h-9'>
-      <div className='relative inline-block rounded-full overflow-hidden h-9 w-9 md:h-11 md:w-11 border'>
+    <div className={`relative h-8 w-8 ${className}`}>
+      <div className='relative inline-block rounded-full overflow-hidden h-8 w-8 border'>
         <Image src={user?.image || '/image/placeholder.jpg'} alt='avatar' fill />
       </div>
       <span className='absolute block rounded-full bg-green-500 
-        ring-2 ring-white bottom-0 right-0 h-2 w-2 md:h-3 md:w-3' 
+        ring-1 ring-white bottom-[2px] right-[2px] h-1.5 w-1.5' 
       />
     </div>
   )

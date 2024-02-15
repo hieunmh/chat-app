@@ -78,11 +78,18 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({ data, selected }) => 
       selected ? 'bg-neutral-100' : 'bg-white'
       )}
     > 
-      {data.isGroup ? ( <AvatarGroup users={data.users} /> ) : ( <Avatar user={otherUser} />)}
+      <div className='h-12 w-12 flex items-center justify-center'>
+        {data.isGroup ? ( 
+          <AvatarGroup users={data.users} className='scale-[1.6]' /> 
+          ) : ( 
+          <Avatar user={otherUser} className='scale-[1.6]' />
+        )}
+      </div>
+
       <div className='min-w-0 flex-1'>
         <div className='focus:outline-none'>
           <div className='flex justify-between items-center mb-1'>
-            <p className='text-md font-medium text-gray-900'>{data.name || otherUser.name}</p>
+            <p className='text-sm font-semibold text-gray-900'>{data.name || otherUser.name}</p>
           </div>
           <div className={clsx(`text-xs flex w-full justify-start items-center space-x-1`,
               hasSeen ? 'text-gray-500' : 'text-black font-medium'

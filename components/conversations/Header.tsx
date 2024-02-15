@@ -41,19 +41,21 @@ const Header: React.FC<HeaderProps> = ({ conversation }) => {
           </Link>
 
           {conversation.isGroup ? (
-            <AvatarGroup users={conversation.users} />
+            <AvatarGroup users={conversation.users} className='scale-[1.2]' />
           ) : (
-            <Avatar user={otherUser} />
+            <Avatar user={otherUser} className='scale-[1.2]' />
           )}
 
           <div className='flex flex-col'>
-            <div className=''>{conversation.name || otherUser.name}</div>
+            <div className='font-semibold'>{conversation.name || otherUser.name}</div>
             <div className='text-xs font-normal text-neutral-500'>{statusText}</div>
           </div>
         </div>
-        <HiEllipsisHorizontal size={32} onClick={() => setDrawerOpen(true)} 
-          className='text-sky-500 cursor-pointer hover:text-sky-600 transition'
-        />
+        <div className='p-1 rounded-full hover:bg-gray-100'>
+          <HiEllipsisHorizontal size={28} onClick={() => setDrawerOpen(true)} 
+            className='text-sky-500 cursor-pointer hover:text-sky-600 transition'
+          />
+        </div>
       </div>
     </>
   )

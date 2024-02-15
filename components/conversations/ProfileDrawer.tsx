@@ -37,7 +37,7 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({ isOpen, onClose, data }) 
       return `${data.users.length} members`;
     }
 
-    return 'Active';
+    return 'Active now';
   }, [data]);
 
   return (
@@ -80,13 +80,13 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({ isOpen, onClose, data }) 
                         <div className='flex flex-col items-center'>
                           <div className='mb-2'>
                             {data.isGroup ? (
-                              <AvatarGroup users={data.users} />
+                              <AvatarGroup users={data.users} className='scale-[2.5]' />
                             ) : (
-                              <Avatar user={otherUser} />
+                              <Avatar user={otherUser} className='scale-[2.5]' />
                             )}
                           </div>
 
-                          <div className='font-semibold text-xl'>{title}</div>
+                          <div className='font-semibold text-xl mt-5'>{title}</div>
 
                           <div className='text-sm text-gray-500'>{statusText}</div>
 

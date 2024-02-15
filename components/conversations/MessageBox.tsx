@@ -7,6 +7,7 @@ import Avatar from '../Avatar';
 import { format } from 'date-fns';
 import Image from 'next/image';
 import { useState } from 'react';
+import ImageModal from '../modal/ImageModal';
 
 interface MessageBoxProps {
   data: FullMessageType;
@@ -16,6 +17,8 @@ interface MessageBoxProps {
 const MessageBox: React.FC<MessageBoxProps> = ({ data, isLast }) => {
 
   const session = useSession();
+
+  const [imageModalOpen, setImageModalOpen] = useState(false);
 
   const isOwn = session?.data?.user?.email === data?.sender?.email;
   const name = session?.data?.user?.email === data?.sender?.email ? '' : data?.sender?.name;
@@ -28,8 +31,10 @@ const MessageBox: React.FC<MessageBoxProps> = ({ data, isLast }) => {
 
   return (
     <div className={container}>
+      <ImageModal src={data.image} isOpen={imageModalOpen} onClose={() => setImageModalOpen(false)} />
+      
       <div className={isOwn ? 'hidden' : 'flex items-end'}>
-        <Avatar user={data.sender} />
+        <Avatar user={data.sender} className='' />
       </div>
 
       <div className='flex flex-col gap-1'>
@@ -51,8 +56,8 @@ const MessageBox: React.FC<MessageBoxProps> = ({ data, isLast }) => {
 
           <div className='' onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
             {data.image ? (
-              <Image src={data.image} height={1000} width={1000} alt='image' 
-                className='object-cover cursor-pointer transition translate w-72 h-72 rounded-md p-0'
+              <Image onClick={() => setImageModalOpen(true)} src={data.image} height={1000} width={1000} alt='image' 
+                className='object-cover cursor-pointer transition translate w-72 rounded-md p-0'
               />
             ) : (
               <div className={`${isOwn ? 'bg-sky-500 text-white items-start' : 'bg-gray-100'} 
