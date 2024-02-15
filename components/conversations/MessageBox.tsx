@@ -24,12 +24,6 @@ const MessageBox: React.FC<MessageBoxProps> = ({ data, isLast }) => {
 
   const container = clsx(`flex gap-3 p-4`, isOwn && 'justify-end');
 
-
-  const message = clsx(`text-sm w-fit relative`, 
-    isOwn ? 'bg-sky-500 text-white' : 'bg-gray-100',
-    data?.image ? 'rounded-md p-0' : 'rounded-full py-2 px-3'
-  )
-
   const [isHover, setIsHover] = useState(false);
 
   return (
@@ -62,7 +56,7 @@ const MessageBox: React.FC<MessageBoxProps> = ({ data, isLast }) => {
               />
             ) : (
               <div className={`${isOwn ? 'bg-sky-500 text-white items-start' : 'bg-gray-100'} 
-                rounded-3xl px-3 py-2 text-pretty max-w-xs sm:max-w-md xl:max-w-lg`}
+                rounded-xl px-3 py-2 text-pretty max-w-[300px] sm:max-w-md xl:max-w-lg`}
               >
                 {data.body}
               </div>
@@ -78,7 +72,7 @@ const MessageBox: React.FC<MessageBoxProps> = ({ data, isLast }) => {
           )}
         </div>
         {isLast && isOwn && seenList.length > 0 && (
-          <div className='text-xs font-light text-gray-500'>
+          <div className='text-xs font-light text-gray-500 text-end'>
             {`Seen by ${seenList}`}
           </div>
         )}
