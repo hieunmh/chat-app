@@ -7,6 +7,7 @@ import { useMemo, useState } from 'react';
 import { HiChevronLeft, HiEllipsisHorizontal } from 'react-icons/hi2';
 import Avatar from '../Avatar';
 import ProfileDrawer from './ProfileDrawer';
+import AvatarGroup from '../AvatarGroup';
 
 
 interface HeaderProps {
@@ -23,7 +24,7 @@ const Header: React.FC<HeaderProps> = ({ conversation }) => {
       return `${conversation.users.length} members`;
     }
 
-    return 'Active';
+    return 'Active now';
 
   }, [conversation]);
 
@@ -39,11 +40,15 @@ const Header: React.FC<HeaderProps> = ({ conversation }) => {
             <HiChevronLeft size={32} />
           </Link>
 
-          <Avatar user={otherUser} />
+          {conversation.isGroup ? (
+            <AvatarGroup users={conversation.users} />
+          ) : (
+            <Avatar user={otherUser} />
+          )}
 
           <div className='flex flex-col'>
             <div className=''>{conversation.name || otherUser.name}</div>
-            <div className='text-sm font-light text-neutral-500'>{statusText}</div>
+            <div className='text-xs font-normal text-neutral-500'>{statusText}</div>
           </div>
         </div>
         <HiEllipsisHorizontal size={32} onClick={() => setDrawerOpen(true)} 

@@ -9,6 +9,8 @@ import toast from 'react-hot-toast';
 import Modal from './Modal';
 import Input from '../input/Input';
 import Select from '../input/Select';
+import Button from '../Button';
+import { LuLoader2 } from 'react-icons/lu';
 
 interface GroupChatModalProps {
   isOpen?: boolean;
@@ -66,6 +68,26 @@ const GroupChatModal: React.FC<GroupChatModalProps> = ({ isOpen, onClose, users 
               />
             </div>
           </div>
+        </div>
+
+        <div className='mt-6 flex items-center justify-end gap-x-6'>
+          <button disabled={isLoading}
+            onClick={onClose} className='px-3 py-2 text-sm font-semibold '
+          >
+            Cancel
+          </button>
+
+          <button disabled={isLoading} type='submit'
+            className='px-3 py-2 text-sm font-semibold bg-sky-500 rounded-md text-white hover:opacity-80'
+          >
+            {isLoading ? (
+              <div className='h-5 w-12 flex items-center justify-center'>
+                <LuLoader2 size={20} className='animate-spin' />
+              </div>
+            ) : (
+              <p className='w-12'>Create</p>
+            )} 
+          </button>
         </div>
       </form>
     </Modal>
