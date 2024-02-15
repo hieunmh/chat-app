@@ -56,22 +56,24 @@ const SettingModal: React.FC<SettingModalProps> = ({ isOpen, onClose, currentUse
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className='space-y-12'>
           <div className='border-b border-b-gray-900/10 pb-12'>
-            <h2 className='text-base font-semibold leading-7 text-gray-900'>Profile</h2>
+            <h2 className='text-base font-semibold leading-7 text-[#d2d2d2]'>Profile</h2>
 
-            <p className='mt-1 text-sm leading-6 text-gray-600'>Edit your public information</p>
+            <p className='mt-1 text-sm leading-6 text-[#797979]'>Edit your public information</p>
 
             <div className='mt-10 flex flex-col gap-y-8'>
               <Input disabled={isLoading} label='Name' id='name' errors={errors} required register={register} />
 
               <div>
-                <label className='block text-sm font-medium leading-6 text-gray-900'>Photo</label>
+                <label className='block text-sm leading-6 text-[#d2d2d2] font-semibold tracking-[0.5px]'>Photo</label>
                 <div className='mt-2 flex items-center gap-x-3'>
                   <Image width={960} height={960} src={image || currentUser?.image || '/image/placeholder.jpg'}
                     className='rounded-full h-24 w-24 border-[2px] border-sky-500' alt='avatar'
                   />
 
                   <CldUploadButton options={{ maxFiles: 1 }} onUpload={handleUpload} uploadPreset='o8neke75'>
-                    <button disabled={isLoading} type='button' className='px-3 py-2 text-sm font-semibold'>
+                    <button disabled={isLoading} type='button' 
+                      className='px-3 py-2 text-sm font-semibold text-[#d2d2d2] tracking-[0.5px]'
+                    >
                       Change
                     </button>
                   </CldUploadButton>
@@ -81,12 +83,12 @@ const SettingModal: React.FC<SettingModalProps> = ({ isOpen, onClose, currentUse
           </div>
 
           <div className='mt-6 flex items-center justify-end gap-x-6'>
-            <button className='px-3 py-2 text-sm font-semibold'
+            <button className='px-3 py-2 text-sm font-normal tracking-[0.5px] text-[#d2d2d2]'
               onClick={onClose}
             >
               Cancel
             </button>
-            <button className='px-3 py-2 text-sm font-semibold bg-sky-500 rounded-md text-white hover:opacity-80'
+            <button className='px-3 py-2 text-sm font-normal tracking-[0.5px] bg-sky-500 rounded-md text-white hover:opacity-80'
               onClick={onClose} type='submit'
             >
               Save

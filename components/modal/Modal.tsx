@@ -18,7 +18,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
           enterFrom='opacity-0' enterTo='opacity-100'
           leave='ease-in duration-200' leaveFrom='opacity-100' leaveTo='opacity-0'
         >
-          <div className='fixed inset-0 bg-black backdrop-blur-sm bg-opacity-75 transition-opacity' />
+          <div className='fixed inset-0 bg-black backdrop-blur bg-opacity-10 transition-opacity' />
         </Transition.Child>
 
         <div className='fixed inset-0 z-10 overflow-y-auto'>
@@ -30,11 +30,11 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
               leaveTo='opacity-0 translate-y-4 sm:translatey-0 sm:scale-95'
             >
               <Dialog.Panel
-                className='relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 
+                className='relative transform overflow-hidden rounded-lg bg-[#363636] px-4 pb-4 
                 text-left shadow-xl transition-all w-full sm:my-8 sm:w-full sm:max-w-lg sm:p-6'
               >
                 <div className='absolute right-0 top-0 hidden pr-4 pt-4 sm:block z-10'>
-                  <button type='button' className='rounded-md bg-white text-gray-400 hover:text-gray-500 
+                  <button type='button' className='rounded-md bg-[#363636] text-[#d2d2d2] 
                     focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2'
                     onClick={onClose}
                   >

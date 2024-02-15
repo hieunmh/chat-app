@@ -20,14 +20,14 @@ const AvatarGroup: React.FC<AvatarGroupProps> = ({ users, className }) => {
   return (
     <div className={`relative h-8 w-8 ${className}`}>
       {sliceUsers?.map((user, index) => (
-        <div key={user.id} className={`absolute inline-block rounded-full overflow-hidden h-[22px] w-[22px] border
+        <div key={user.id} className={`absolute inline-block rounded-full overflow-hidden h-[22px] w-[22px]
           ${positionMap[index as keyof typeof positionMap]}`}
         >
           <Image src={user?.image || '/image/placeholder.jpg'} alt='avatar' fill />
         </div>
       ))}
       <span className='absolute block rounded-full bg-green-500 
-        ring-1 ring-white bottom-[2px] right-[2px] h-1.5 w-1.5' 
+        bottom-[1.5px] right-[1.5px] h-2 w-2' 
       />
     </div>
   )

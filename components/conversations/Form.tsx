@@ -35,7 +35,7 @@ const Form: React.FC<FormProps> = ({  }) => {
   }
 
   return (
-    <div className='py-4 px-4 bg-white border-t flex items-center gap-2 lg:gap-4 w-full'>
+    <div className='py-4 px-4 bg-[#242424] border-t border-t-[#363636] flex items-center gap-2 lg:gap-4 w-full'>
       <CldUploadButton options={{ maxFiles: 1 }}
         onUpload={handleUpload}
         uploadPreset='o8neke75'

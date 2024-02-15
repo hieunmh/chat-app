@@ -61,11 +61,11 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({ isOpen, onClose, data }) 
                   leaveTo='translate-x-full'
                 >
                   <Dialog.Panel className='pointer-events-auto w-screen max-w-md'>
-                    <div className='flex h-full flex-col overscroll-y-scroll bg-white py-6 shadow-xl'>
+                    <div className='flex h-full flex-col overscroll-y-scroll bg-[#242424] py-6 shadow-xl'>
                       <div className='px-4 sm:px-6'>
                         <div className='flex items-start justify-end'>
                           <div className='ml-3 flex h-7 items-center'>
-                            <button type='button' className='rounded-md bg-white text-gray-400 hover:text-gray-500
+                            <button type='button' className='rounded-md bg-[#363636] text-[#d2d2d2]
                               focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2'
                               onClick={onClose}
                             >
@@ -86,19 +86,19 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({ isOpen, onClose, data }) 
                             )}
                           </div>
 
-                          <div className='font-semibold text-xl mt-5'>{title}</div>
+                          <div className='font-semibold text-xl text-[#d2d2d2] tracking-[1px] mt-5'>{title}</div>
 
-                          <div className='text-sm text-gray-500'>{statusText}</div>
+                          <div className='text-sm text-[#797979]'>{statusText}</div>
 
                           <div className='flex gap-10 mt-8'>
                             <div onClick={() => setConfirmOpen(true)} 
                               className='flex flex-col gap-3 items-center cursor-pointer hover:opacity-75'
                             >
-                              <div className='w-10 h-10 bg-neutral-100 rounded-full flex items-center justify-center'>
-                                <IoTrash size={20} />
+                              <div className='w-10 h-10 bg-[#363636] rounded-full flex items-center justify-center'>
+                                <IoTrash size={20} className='text-[#d2d2d2]' />
                               </div>
 
-                              <div className='text-sm font-light text-neutral-600'>Delete</div>
+                              <div className='text-sm font-normal text-[#d2d2d2]'>Delete</div>
                             </div>
                           </div>
 
@@ -106,10 +106,10 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({ isOpen, onClose, data }) 
                             <dl className='space-y-0 px-4 sm:space-y-6 sm:px-6'>
                               {!data.isGroup ? (
                                 <div>
-                                  <dt className='text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0'>
+                                  <dt className='text-lg font-medium text-gray-500 sm:w-40 sm:flex-shrink-0'>
                                     Email
                                   </dt>
-                                  <dd className='mt-1 text-sm text-gray-900 sm:col-span-2'>
+                                  <dd className='mt-1 text-lg text-[#d2d2d2] sm:col-span-2'>
                                     {otherUser.email}
                                   </dd>
                                 </div>
@@ -117,12 +117,12 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({ isOpen, onClose, data }) 
                                 <div className='mt-5'>
                                   {data.users.map((user) => (
                                     <div key={user.id}
-                                      className='relative flex items-center space-x-2 hover:bg-gray-100 p-3 rounded-md cursor-pointer' 
+                                      className='relative flex items-center space-x-2 hover:bg-[#363636]/50 p-3 rounded-md cursor-pointer' 
                                     >
-                                      <div className='relative inline-block rounded-full overflow-hidden h-9 w-9 md:h-11 md:w-11 border'>
+                                      <div className='relative inline-block rounded-full overflow-hidden h-9 w-9 md:h-11 md:w-11 border-2 border-[#363636]'>
                                         <Image src={user?.image || '/image/placeholder.jpg'} alt='avatar' fill />
                                       </div>
-                                      <p className='font-semibold text-sm'>{user.name}</p>
+                                      <p className='font-semibold text-sm text-[#d2d2d2] tracking-[1px]'>{user.name}</p>
                                     </div>
                                   ))}
                                 </div>
@@ -131,10 +131,10 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({ isOpen, onClose, data }) 
                                 <>
                                   <hr />
                                   <div>
-                                    <dt className='text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0'>
+                                    <dt className='text-lg font-medium text-gray-500 sm:w-40 sm:flex-shrink-0'>
                                       Joined
                                     </dt>
-                                    <dd className='mt-1 text-sm text-gray-900 sm:col-span-2'>
+                                    <dd className='mt-1 text-lg text-[#d2d2d2] sm:col-span-2'>
                                       <time dateTime={joinedDate}>
                                         {joinedDate}
                                       </time>

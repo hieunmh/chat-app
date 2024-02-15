@@ -12,7 +12,7 @@ const config: Config = {
   plugins: [
     require('@tailwindcss/forms')({
       strategy: 'class'
-    })
+    }), require('tailwind-scrollbar')
   ],
 };
 export default config;

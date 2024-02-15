@@ -47,11 +47,11 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({ isOpen, onClose }) => {
           <FiAlertTriangle className='w-6 h-6 text-red-600' />
         </div>
         <div className='mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left'>
-          <Dialog.Title as='h3' className='text-base font-semibold leading-6 text-gray-900'>
+          <Dialog.Title as='h3' className='text-base font-semibold leading-6 text-[#d2d2d2]'>
             Delete conversation
           </Dialog.Title>
           <div className='mt-2'>
-            <p className='text-sm text-gray-500'>
+            <p className='text-sm text-[#797979]'>
               Are you sure you want to delete this conversation? This can not be undone.
             </p>
           </div>
@@ -65,7 +65,7 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({ isOpen, onClose }) => {
           Delete
         </Button>
         <button disabled={isLoading}
-          onClick={onClose} className='px-3 py-2 text-sm font-semibold '
+          onClick={onClose} className='px-3 py-2 text-sm font-normal text-[#d2d2d2] tracking-[0.5px]'
         >
           Cancel
         </button>

@@ -11,11 +11,11 @@ interface AvatarProps {
 const Avatar: React.FC<AvatarProps> = ({ user, className }) => {
   return (
     <div className={`relative h-8 w-8 ${className}`}>
-      <div className='relative inline-block rounded-full overflow-hidden h-8 w-8 border'>
+      <div className='relative inline-block rounded-full overflow-hidden h-8 w-8'>
         <Image src={user?.image || '/image/placeholder.jpg'} alt='avatar' fill />
       </div>
       <span className='absolute block rounded-full bg-green-500 
-        ring-1 ring-white bottom-[2px] right-[2px] h-1.5 w-1.5' 
+        bottom-[1.5px] right-[1.5px] h-2 w-2' 
       />
     </div>
   )

@@ -74,8 +74,8 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({ data, selected }) => 
 
   return ( 
     <div onClick={handleClick} className={clsx(` w-full relative flex items-center 
-      space-x-3 hover:bg-neutral-100 rounded-lg transition cursor-pointer p-3`,
-      selected ? 'bg-neutral-100' : 'bg-white'
+      space-x-3 rounded-lg transition cursor-pointer p-3`,
+      selected ? 'bg-[#363636]/50' : 'bg-[#242424]'
       )}
     > 
       <div className='h-12 w-12 flex items-center justify-center'>
@@ -89,15 +89,16 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({ data, selected }) => 
       <div className='min-w-0 flex-1'>
         <div className='focus:outline-none'>
           <div className='flex justify-between items-center mb-1'>
-            <p className='text-sm font-semibold text-gray-900'>{data.name || otherUser.name}</p>
+            <p className='text-sm font-semibold text-[#d2d2d2] tracking-[1px]'>{data.name || otherUser.name}</p>
           </div>
+
           <div className={clsx(`text-xs flex w-full justify-start items-center space-x-1`,
-              hasSeen ? 'text-gray-500' : 'text-black font-medium'
+              hasSeen ? 'text-[#d2d2d2]' : 'text-black font-medium'
             )}
           >
-            <p className='truncate'>{lastMessageText}.</p>
+            <p className='truncate text-[#797979]'>{lastMessageText}.</p>
             {lastMessage?.createdAt && (
-              <p className='text-xs text-gray-400 font-light'>
+              <p className='text-xs text-[#797979] font-light'>
                 {format(new Date(lastMessage?.createdAt), 'HH:mm')}
               </p>
             )}

@@ -23,7 +23,7 @@ const Body: React.FC<BodyProps> = ({ initialMessages }) => {
 
 
   return (
-    <div className='flex-1 overflow-y-auto'>
+    <div className='flex-1 overflow-y-auto scrollbar-thin scrollbar-track- scrollbar-thumb-[#0A7CFF]'>
       {messages.map((message, index) => (
         <MessageBox isLast={index === messages.length - 1} key={message.id} data={message} />
       ))}
