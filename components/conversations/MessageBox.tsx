@@ -3,7 +3,7 @@
 import { FullMessageType } from '@/types';
 import clsx from 'clsx';
 import { useSession } from 'next-auth/react';
-import Avatar from '../Avatar';
+import Avatar from '../avatar/Avatar';
 import { format } from 'date-fns';
 import Image from 'next/image';
 import { useState } from 'react';

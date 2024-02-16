@@ -25,7 +25,7 @@ const ImageModal: React.FC<ImageModalProps> = ({ src, isOpen, onClose }) => {
           enterFrom='opacity-0' enterTo='opacity-100'
           leave='ease-in duration-200' leaveFrom='opacity-100' leaveTo='opacity-0'
         >
-          <div className='fixed inset-0 bg-black backdrop-blur-xl bg-opacity-75 transition-opacity' />
+          <div className='fixed inset-0 bg-black backdrop-blur-md bg-opacity-40 transition-opacity' />
         </Transition.Child>
 
         <div className='fixed inset-0'>

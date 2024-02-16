@@ -5,9 +5,10 @@ import { Conversation, User } from '@prisma/client';
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import { HiChevronLeft, HiEllipsisHorizontal } from 'react-icons/hi2';
-import Avatar from '../Avatar';
+import Avatar from '../avatar/Avatar';
 import ProfileDrawer from './ProfileDrawer';
-import AvatarGroup from '../AvatarGroup';
+import AvatarGroup from '../avatar/AvatarGroup';
+import useActiveList from '@/hooks/useActiveList';
 
 
 interface HeaderProps {
@@ -18,13 +19,16 @@ const Header: React.FC<HeaderProps> = ({ conversation }) => {
 
   const otherUser= useOtherUser(conversation);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const { members } = useActiveList();
+  
+  const isActive = members.indexOf(otherUser?.email!) !== -1;
 
   const statusText = useMemo(() => {
     if (conversation.isGroup) {
       return `${conversation.users.length} members`;
     }
 
-    return 'Active now';
+    return isActive ? 'Active now' : 'Offline';
 
   }, [conversation]);
 
@@ -50,7 +54,7 @@ const Header: React.FC<HeaderProps> = ({ conversation }) => {
 
           <div className='flex flex-col'>
             <div className='font-semibold text-[#d2d2d2] tracking-[1px]'>{conversation.name || otherUser.name}</div>
-            <div className='text-xs font-normal text-[#797979]'>{statusText}</div>
+            <div className='text-xs font-normal tracking-[0.5px] text-[#797979]'>{statusText}</div>
           </div>
         </div>
         <div className='p-1 rounded-full hover:bg-[#363636]/50'>

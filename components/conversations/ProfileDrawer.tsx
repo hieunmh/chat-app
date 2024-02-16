@@ -7,11 +7,12 @@ import { format } from 'date-fns';
 import { Dialog, Transition } from '@headlessui/react';
 
 import { IoClose, IoTrash } from 'react-icons/io5'
-import Avatar from '../Avatar';
+import Avatar from '../avatar/Avatar';
 import ConfirmModal from '../modal/ConfirmModal';
-import AvatarGroup from '../AvatarGroup';
+import AvatarGroup from '../avatar/AvatarGroup';
 import Image from 'next/image';
 import Link from 'next/link';
+import useActiveList from '@/hooks/useActiveList';
 
 interface ProfileDrawerProps {
   isOpen: boolean;
@@ -23,6 +24,10 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({ isOpen, onClose, data }) 
 
   const otherUser = useOtherUser(data);
   const [confirmOpen, setConfirmOpen] = useState(false);
+
+  const { members } = useActiveList();
+
+  const isActive = members.indexOf(otherUser?.email!) !== -1;
 
   const joinedDate = useMemo(() => {
     return format(new Date(otherUser.createdAt), 'PP');
@@ -37,7 +42,7 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({ isOpen, onClose, data }) 
       return `${data.users.length} members`;
     }
 
-    return 'Active now';
+    return isActive ? 'Active now' : 'Offline';
   }, [data]);
 
   return (

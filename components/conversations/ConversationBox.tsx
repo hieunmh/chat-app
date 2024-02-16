@@ -7,8 +7,8 @@ import { useSession } from 'next-auth/react';
 import clsx from 'clsx';
 import { FullConversationType } from '@/types';
 import useOtherUser from '@/hooks/useOtherUser';
-import Avatar from '../Avatar';
-import AvatarGroup from '../AvatarGroup';
+import Avatar from '../avatar/Avatar';
+import AvatarGroup from '../avatar/AvatarGroup';
 
 interface ConversationBoxProps {
   data: FullConversationType;
@@ -56,7 +56,7 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({ data, selected }) => 
     if (lastMessage?.image) {
       return session.data?.user?.email === lastMessage?.sender?.email ? 
       'You sent a photo' : (data.isGroup ? 
-        lastMessage.sender.name + ' sent a photo' : ''
+        lastMessage?.sender?.name + ' sent a photo' : ''
       );
     }
 
@@ -64,7 +64,7 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({ data, selected }) => 
       
       return session.data?.user?.email === lastMessage?.sender?.email ? 
       'You: ' + lastMessage.body : (data.isGroup ? 
-        lastMessage.sender.name + ': ' + lastMessage.body : lastMessage.body
+        lastMessage?.sender?.name + ': ' + lastMessage.body : lastMessage.body
       );
     }
 

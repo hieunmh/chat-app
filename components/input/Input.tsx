@@ -16,7 +16,7 @@ interface InputProps {
 const Input: React.FC<InputProps> = ({ label, id, type, required, register, errors, disabled, dark }) => {
   return (
     <div>
-      <label htmlFor={id} className={`block text-sm font-medium leading-6 ${dark ? 'text[#d2d2d2]' : 'text-gray-950'}`}>
+      <label htmlFor={id} className={`block text-sm font-medium leading-6 ${dark ? 'text-[#d2d2d2]' : 'text-gray-950'}`}>
         {label}
       </label>
       <div className='mt-2'>
