@@ -47,8 +47,8 @@ const MessageBox: React.FC<MessageBoxProps> = ({ data, isLast }) => {
 
         <div className={`flex items-center ${isOwn && 'justify-end'}`}>
           {isOwn && (
-            <div className={`items-center text-black mx-2 ${isHover ? 'flex' : 'hidden'}`}>
-              <div className='text-xs text-gray-[#d2d2d2]'>
+            <div className={`items-center mx-2 ${isHover ? 'flex' : 'hidden'}`}>
+              <div className='text-xs text-[#d2d2d2]'>
                 {format(new Date(data.createdAt), 'dd-MM-yyyy')} at {format(new Date(data.createdAt), 'HH:mm')}
               </div>
             </div>
@@ -69,7 +69,7 @@ const MessageBox: React.FC<MessageBoxProps> = ({ data, isLast }) => {
           </div>
 
           {!isOwn && (
-            <div className={`items-center text-black mx-2 ${isHover ? 'flex' : 'hidden'}`}>
+            <div className={`items-center mx-2 ${isHover ? 'flex' : 'hidden'}`}>
               <div className='text-xs text-[#d2d2d2]'>
                 {format(new Date(data.createdAt), 'dd-MM-yyyy')} at {format(new Date(data.createdAt), 'HH:mm')}
               </div>
@@ -77,7 +77,7 @@ const MessageBox: React.FC<MessageBoxProps> = ({ data, isLast }) => {
           )}
         </div>
         {isLast && isOwn && seenList.length > 0 && (
-          <div className='text-xs font-light text-gray-500 text-end'>
+          <div className='text-xs font-light text-[#d2d2d2] text-end'>
             {`Seen by ${seenList}`}
           </div>
         )}

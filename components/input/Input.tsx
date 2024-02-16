@@ -10,14 +10,13 @@ interface InputProps {
   register: UseFormRegister<FieldValues>;
   errors: FieldErrors;
   disabled?: boolean;
+  dark?: boolean;
 }
 
-const Input: React.FC<InputProps> = ({ label, id, type, required, register, errors, disabled }) => {
+const Input: React.FC<InputProps> = ({ label, id, type, required, register, errors, disabled, dark }) => {
   return (
     <div>
-      <label htmlFor={id}
-        className='block text-sm font-medium leading-6 text-gray-950'
-      >
+      <label htmlFor={id} className={`block text-sm font-medium leading-6 ${dark ? 'text[#d2d2d2]' : 'text-gray-950'}`}>
         {label}
       </label>
       <div className='mt-2'>
@@ -27,7 +26,8 @@ const Input: React.FC<InputProps> = ({ label, id, type, required, register, erro
           shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset 
           focus-within:ring-sky-600 sm:text-sm sm:leading-6`,
            errors[id] && 'focus:ring-rose-500', 
-           disabled && 'opacity-80 cursor-default'
+           disabled && 'opacity-80 cursor-default',
+           dark && 'text-[#d2d2d2] bg-[#242424] ring-0 outline-none'
           )}
         />
       </div>
