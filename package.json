@@ -7,9 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "postinstall": "prisma generate",
-    "generate": "npx prisma generate",
-    "deploy": "npx prisma migrate deploy"
+    "postinstall": "npx prisma generate"
+    
   },
   "prisma": {
     "schema": "prisma/schema.prisma"
